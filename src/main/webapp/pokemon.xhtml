@@ -7,7 +7,41 @@
 
 <ui:composition template="template.xhtml">
 <ui:define name="conteudo">
-
+    <h:form>
+        <p:messages autoUpdate="true" showDetail="true"/>
+        <p:commandButton value = "Listar Especies" action="#{especieBean.listar()}" update="@form"/>
+        <p:fieldset>
+        <p:dataTable  value="#{especieBean.entidades}" var="especie">
+            <p:column headerText="Nome" sortBy="#{especie.nome}">
+                <h:outputText value="#{especie.nome}"></h:outputText>
+            </p:column>
+            <p:column headerText="HP base" sortBy="#{especie.baseHP}">
+                <h:outputText value="#{especie.baseHP}"></h:outputText>
+            </p:column>
+            <p:column headerText="Ataque base" sortBy="#{especie.baseAtk}">
+                <h:outputText value="#{especie.baseAtk}"></h:outputText>
+            </p:column>
+            <p:column headerText="Defesa base" sortBy="#{especie.baseDef}">
+                <h:outputText value="#{especie.baseDef}"></h:outputText>
+            </p:column>
+            <p:column headerText="Spe base" sortBy="#{especie.baseSpe}">
+                <h:outputText value="#{especie.baseSpe}"></h:outputText>
+            </p:column>
+            <p:column headerText="Velocidade base" sortBy="#{especie.baseSpd}">
+                <h:outputText value="#{especie.baseSpd}"></h:outputText>
+            </p:column>
+            <p:column headerText="Tipo 1" sortBy="#{especie.tipo1}">
+                <h:outputText value="#{especie.tipo1}"></h:outputText>
+            </p:column>
+            <p:column headerText="Tipo 2" sortBy="#{especie.tipo2}">
+                <h:outputText value="#{especie.tipo2}"></h:outputText>
+            </p:column>
+            <p:column>
+                <p:commandButton value="Escolher" action="#{especieBean.}"  update="@form"/>
+            </p:column>
+        </p:dataTable>
+        </p:fieldset>
+    </h:form>
 </ui:define>
 </ui:composition>
 </html>

@@ -4,16 +4,25 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  
-  <servlet>
-		<servlet-name>FacesServlet</servlet-name>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>FacesServlet</servlet-name>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+	<session-config>
+		<session-timeout>
+			30
+		</session-timeout>
+	</session-config>
 	
 	<welcome-file-list>
 		<welcome-file>index.xhtml</welcome-file>

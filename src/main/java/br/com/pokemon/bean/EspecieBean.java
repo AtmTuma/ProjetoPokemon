@@ -27,4 +27,7 @@ public class EspecieBean extends Bean<Especie, EspecieDao>{
         return new Especie();
     }
 
+    public Especie carregar(Especie especie){
+
+    }
 }
