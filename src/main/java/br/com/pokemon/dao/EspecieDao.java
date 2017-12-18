@@ -1,6 +1,7 @@
 package br.com.pokemon.dao;
 
 import br.com.pokemon.model.Especie;
+import br.com.pokemon.util.conexao.FabricaConexao;
 import br.com.pokemon.util.exception.ErroSistema;
 
 import javax.persistence.EntityManager;
@@ -15,8 +16,14 @@ public class EspecieDao implements Dao<Especie> {
         this.manager = manager;
     }
 
+    private void inicializar() {
+        if (manager == null)
+            this.manager = new FabricaConexao().createEntityManager();
+    }
+
     @Override
     public List<Especie> findAll() throws ErroSistema {
+        inicializar();
         try {
             return manager.createQuery("Select u from Especie u ").getResultList();
         } catch (Exception ex) {
@@ -26,6 +33,7 @@ public class EspecieDao implements Dao<Especie> {
 
     @Override
     public Especie findById(Long id) throws ErroSistema {
+        inicializar();
         try {
             Query query = manager.createQuery("Select u from Especie u where u.id = :pid");
             query.setParameter("pid", id);
@@ -37,6 +45,7 @@ public class EspecieDao implements Dao<Especie> {
 
     @Override
     public List<Especie> findByName(String name) throws ErroSistema {
+        inicializar();
         try {
             Query query = manager.createQuery("Select u from Especie u where upper(u.nome) like :pnome");
             query.setParameter("pnome", "%" + name.toUpperCase() + "%");
@@ -48,6 +57,7 @@ public class EspecieDao implements Dao<Especie> {
 
     @Override
     public boolean save(Especie t) throws ErroSistema {
+        inicializar();
         try {
             if (t.getId() != null) {
                 manager.merge(t);
@@ -62,6 +72,7 @@ public class EspecieDao implements Dao<Especie> {
 
     @Override
     public boolean delete(Especie t) throws ErroSistema {
+        inicializar();
         try {
             manager.remove(t);
         } catch (Exception ex) {

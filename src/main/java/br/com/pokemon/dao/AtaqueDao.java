@@ -1,13 +1,14 @@
 package br.com.pokemon.dao;
 
 import br.com.pokemon.model.Ataque;
+import br.com.pokemon.util.conexao.FabricaConexao;
 import br.com.pokemon.util.exception.ErroSistema;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class AtaqueDao implements Dao<Ataque>{
+public class AtaqueDao implements Dao<Ataque> {
 
     private EntityManager manager;
 
@@ -15,8 +16,14 @@ public class AtaqueDao implements Dao<Ataque>{
         this.manager = manager;
     }
 
+    private void inicializar() {
+        if (manager == null)
+            this.manager = new FabricaConexao().createEntityManager();
+    }
+
     @Override
     public List<Ataque> findAll() throws ErroSistema {
+        inicializar();
         try {
             return manager.createQuery("Select u from Ataque u ").getResultList();
         } catch (Exception ex) {
@@ -26,6 +33,7 @@ public class AtaqueDao implements Dao<Ataque>{
 
     @Override
     public Ataque findById(Long id) throws ErroSistema {
+        inicializar();
         try {
             Query query = manager.createQuery("Select u from Ataque u where u.id = :pid");
             query.setParameter("pid", id);
@@ -37,6 +45,7 @@ public class AtaqueDao implements Dao<Ataque>{
 
     @Override
     public List<Ataque> findByName(String name) throws ErroSistema {
+        inicializar();
         try {
             Query query = manager.createQuery("Select u from Atque u where upper(u.nome) like :pnome");
             query.setParameter("pnome", "%" + name.toUpperCase() + "%");
@@ -48,6 +57,7 @@ public class AtaqueDao implements Dao<Ataque>{
 
     @Override
     public boolean save(Ataque t) throws ErroSistema {
+        inicializar();
         try {
             if (t.getId() != null) {
                 manager.merge(t);
@@ -62,6 +72,7 @@ public class AtaqueDao implements Dao<Ataque>{
 
     @Override
     public boolean delete(Ataque t) throws ErroSistema {
+        inicializar();
         try {
             manager.remove(t);
         } catch (Exception ex) {

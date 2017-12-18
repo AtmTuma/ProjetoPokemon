@@ -1,13 +1,14 @@
 package br.com.pokemon.dao;
 
 import br.com.pokemon.model.Pokemon;
+import br.com.pokemon.util.conexao.FabricaConexao;
 import br.com.pokemon.util.exception.ErroSistema;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class PokemonDao implements Dao<Pokemon>{
+public class PokemonDao implements Dao<Pokemon> {
 
     private EntityManager manager;
 
@@ -15,8 +16,14 @@ public class PokemonDao implements Dao<Pokemon>{
         this.manager = manager;
     }
 
+    private void inicializar() {
+        if (manager == null)
+            this.manager = new FabricaConexao().createEntityManager();
+    }
+
     @Override
     public List<Pokemon> findAll() throws ErroSistema {
+        inicializar();
         try {
             return manager.createQuery("Select u from Pokemon u ").getResultList();
         } catch (Exception ex) {
@@ -26,6 +33,7 @@ public class PokemonDao implements Dao<Pokemon>{
 
     @Override
     public Pokemon findById(Long id) throws ErroSistema {
+        inicializar();
         try {
             Query query = manager.createQuery("Select u from Pokemon u where u.id = :pid");
             query.setParameter("pid", id);
@@ -37,6 +45,7 @@ public class PokemonDao implements Dao<Pokemon>{
 
     @Override
     public List<Pokemon> findByName(String name) throws ErroSistema {
+        inicializar();
         try {
             Query query = manager.createQuery("Select u from Pokemon u where upper(u.nome) like :pnome");
             query.setParameter("pnome", "%" + name.toUpperCase() + "%");
@@ -48,6 +57,7 @@ public class PokemonDao implements Dao<Pokemon>{
 
     @Override
     public boolean save(Pokemon t) throws ErroSistema {
+        inicializar();
         try {
             if (t.getId() != null) {
                 manager.merge(t);
@@ -62,6 +72,7 @@ public class PokemonDao implements Dao<Pokemon>{
 
     @Override
     public boolean delete(Pokemon t) throws ErroSistema {
+        inicializar();
         try {
             manager.remove(t);
         } catch (Exception ex) {

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<head>
+    <title>Pokemon</title>
+</head>
+<body>
+<h1>Projeto Pokemon</h1>
+<hr/>
+<form>
+    <p:menubar>
+        <p:menuitem value="Inicio" url="index.xhtml"/>
+        <p:menuitem value="Pokemon" url="pokemon.xhtml"/>
+        <p:menuitem value="Batalha" url="batalha.xhtml"/>
+    </p:menubar>
+</form>
+<ui:insert name="conteudo"/>
+
+</body>
+</html>

@@ -16,7 +16,7 @@ public class Ataque {
 	private Double ppMax;
 	@Column(nullable = false)
 	private Double ppAtual;
-	@Column(nullable = false)
+	@Column(name = "poder",nullable = false)
 	private Double power;
 	@Column(nullable = false)
 	private Double accuracy;
@@ -40,9 +40,9 @@ public class Ataque {
 	private Integer porcentagem;
 
 	//ataque multihit
-	@Column(nullable = true)
+	@Column(name = "minimo", nullable = true)
 	private Integer min;
-	@Column(nullable = true)
+	@Column(name = "maximo", nullable = true)
 	private Integer max;
 
 	//ataque status
@@ -54,7 +54,7 @@ public class Ataque {
 	private Integer chance;
 
 	//ataque modifier
-	@Column(nullable = true)
+	@Column(name = "modifier",nullable = true)
 	private Integer mod;
 	@Column(nullable = true)
 	private Integer n;

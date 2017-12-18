@@ -4,8 +4,12 @@ import br.com.pokemon.dao.AtaqueDao;
 import br.com.pokemon.dao.EspecieDao;
 import br.com.pokemon.model.Ataque;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 
+@ManagedBean(name = "ataqueBean")
+@SessionScoped
 public class AtaqueBean extends Bean<Ataque, AtaqueDao> {
 
     private EntityManager manager;
